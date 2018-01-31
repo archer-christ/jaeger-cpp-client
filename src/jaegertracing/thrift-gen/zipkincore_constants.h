@@ -19,6 +19,8 @@ class zipkincoreConstants {
   std::string CLIENT_RECV;
   std::string SERVER_SEND;
   std::string SERVER_RECV;
+  std::string MESSAGE_SEND;
+  std::string MESSAGE_RECV;
   std::string WIRE_SEND;
   std::string WIRE_RECV;
   std::string CLIENT_SEND_FRAGMENT;
@@ -28,6 +30,7 @@ class zipkincoreConstants {
   std::string LOCAL_COMPONENT;
   std::string CLIENT_ADDR;
   std::string SERVER_ADDR;
+  std::string MESSAGE_ADDR;
 };
 
 extern const zipkincoreConstants g_zipkincore_constants;

@@ -19,6 +19,10 @@ zipkincoreConstants::zipkincoreConstants() {
 
   SERVER_RECV = "sr";
 
+  MESSAGE_SEND = "ms";
+
+  MESSAGE_RECV = "mr";
+
   WIRE_SEND = "ws";
 
   WIRE_RECV = "wr";
@@ -36,6 +40,8 @@ zipkincoreConstants::zipkincoreConstants() {
   CLIENT_ADDR = "ca";
 
   SERVER_ADDR = "sa";
+
+  MESSAGE_ADDR = "ma";
 
 }
 

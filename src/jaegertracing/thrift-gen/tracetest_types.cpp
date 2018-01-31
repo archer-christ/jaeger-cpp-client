@@ -51,7 +51,8 @@ void Downstream::__set_transport(const Transport::type val) {
 }
 
 void Downstream::__set_downstream(const Downstream& val) {
-  this->downstream = boost::shared_ptr<Downstream>(new Downstream(val));
+  this->downstream = val;
+__isset.downstream = true;
 }
 
 const char* Downstream::ascii_fingerprint = "864D68E1D3FB0C71C1E979F437051051";
@@ -126,7 +127,8 @@ uint32_t Downstream::read(::apache::thrift::protocol::TProtocol* iprot) {
         break;
       case 6:
         if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->downstream->read(iprot);
+          xfer += this->downstream.read(iprot);
+          this->__isset.downstream = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -178,9 +180,9 @@ uint32_t Downstream::write(::apache::thrift::protocol::TProtocol* oprot) const {
   xfer += oprot->writeI32((int32_t)this->transport);
   xfer += oprot->writeFieldEnd();
 
-  if (this->downstream) {
+  if (this->__isset.downstream) {
     xfer += oprot->writeFieldBegin("downstream", ::apache::thrift::protocol::T_STRUCT, 6);
-    xfer += this->downstream->write(oprot);
+    xfer += this->downstream.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
   xfer += oprot->writeFieldStop();
@@ -197,6 +199,7 @@ void swap(Downstream &a, Downstream &b) {
   swap(a.port, b.port);
   swap(a.transport, b.transport);
   swap(a.downstream, b.downstream);
+  swap(a.__isset, b.__isset);
 }
 
 Downstream::Downstream(const Downstream& other1) {
@@ -206,6 +209,7 @@ Downstream::Downstream(const Downstream& other1) {
   port = other1.port;
   transport = other1.transport;
   downstream = other1.downstream;
+  __isset = other1.__isset;
 }
 Downstream& Downstream::operator=(const Downstream& other2) {
   serviceName = other2.serviceName;
@@ -214,6 +218,7 @@ Downstream& Downstream::operator=(const Downstream& other2) {
   port = other2.port;
   transport = other2.transport;
   downstream = other2.downstream;
+  __isset = other2.__isset;
   return *this;
 }
 std::ostream& operator<<(std::ostream& out, const Downstream& obj) {
@@ -224,7 +229,7 @@ std::ostream& operator<<(std::ostream& out, const Downstream& obj) {
   out << ", " << "host=" << to_string(obj.host);
   out << ", " << "port=" << to_string(obj.port);
   out << ", " << "transport=" << to_string(obj.transport);
-  out << ", " << "downstream="; (obj.downstream ? (out << to_string(*obj.downstream)) : (out << "<null>"));
+  out << ", " << "downstream="; (obj.__isset.downstream ? (out << to_string(obj.downstream)) : (out << "<null>"));
   out << ")";
   return out;
 }
@@ -650,7 +655,8 @@ __isset.span = true;
 }
 
 void TraceResponse::__set_downstream(const TraceResponse& val) {
-  this->downstream = boost::shared_ptr<TraceResponse>(new TraceResponse(val));
+  this->downstream = val;
+__isset.downstream = true;
 }
 
 void TraceResponse::__set_notImplementedError(const std::string& val) {
@@ -691,7 +697,8 @@ uint32_t TraceResponse::read(::apache::thrift::protocol::TProtocol* iprot) {
         break;
       case 2:
         if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->downstream->read(iprot);
+          xfer += this->downstream.read(iprot);
+          this->__isset.downstream = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -728,9 +735,9 @@ uint32_t TraceResponse::write(::apache::thrift::protocol::TProtocol* oprot) cons
     xfer += this->span.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
-  if (this->downstream) {
+  if (this->__isset.downstream) {
     xfer += oprot->writeFieldBegin("downstream", ::apache::thrift::protocol::T_STRUCT, 2);
-    xfer += this->downstream->write(oprot);
+    xfer += this->downstream.write(oprot);
     xfer += oprot->writeFieldEnd();
   }
   xfer += oprot->writeFieldBegin("notImplementedError", ::apache::thrift::protocol::T_STRING, 3);
@@ -768,7 +775,7 @@ std::ostream& operator<<(std::ostream& out, const TraceResponse& obj) {
   using apache::thrift::to_string;
   out << "TraceResponse(";
   out << "span="; (obj.__isset.span ? (out << to_string(obj.span)) : (out << "<null>"));
-  out << ", " << "downstream="; (obj.downstream ? (out << to_string(*obj.downstream)) : (out << "<null>"));
+  out << ", " << "downstream="; (obj.__isset.downstream ? (out << to_string(obj.downstream)) : (out << "<null>"));
   out << ", " << "notImplementedError=" << to_string(obj.notImplementedError);
   out << ")";
   return out;

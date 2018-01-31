@@ -39,6 +39,11 @@ class ObservedSpan;
 
 class TraceResponse;
 
+typedef struct _Downstream__isset {
+  _Downstream__isset() : downstream(false) {}
+  bool downstream :1;
+} _Downstream__isset;
+
 class Downstream {
  public:
 
@@ -56,7 +61,9 @@ class Downstream {
   std::string host;
   std::string port;
   Transport::type transport;
-  boost::shared_ptr<Downstream> downstream;
+  Downstream downstream;
+
+  _Downstream__isset __isset;
 
   void __set_serviceName(const std::string& val);
 
@@ -82,9 +89,9 @@ class Downstream {
       return false;
     if (!(transport == rhs.transport))
       return false;
-    if (static_cast<bool>(downstream) != static_cast<bool>(rhs.downstream))
+    if (__isset.downstream != rhs.__isset.downstream)
       return false;
-    if (downstream && rhs.downstream && !(*downstream == *rhs.downstream))
+    else if (__isset.downstream && !(downstream == rhs.downstream))
       return false;
     return true;
   }
@@ -252,8 +259,9 @@ class ObservedSpan {
 void swap(ObservedSpan &a, ObservedSpan &b);
 
 typedef struct _TraceResponse__isset {
-  _TraceResponse__isset() : span(false) {}
+  _TraceResponse__isset() : span(false), downstream(false) {}
   bool span :1;
+  bool downstream :1;
 } _TraceResponse__isset;
 
 class TraceResponse {
@@ -269,7 +277,7 @@ class TraceResponse {
 
   virtual ~TraceResponse() throw();
   ObservedSpan span;
-  boost::shared_ptr<TraceResponse> downstream;
+  TraceResponse downstream;
   std::string notImplementedError;
 
   _TraceResponse__isset __isset;
@@ -286,10 +294,9 @@ class TraceResponse {
       return false;
     else if (__isset.span && !(span == rhs.span))
       return false;
-    if (static_cast<bool>(downstream) !=
-        static_cast<bool>(rhs.downstream))
+    if (__isset.downstream != rhs.__isset.downstream)
       return false;
-    else if (downstream && rhs.downstream && !(*downstream == *rhs.downstream))
+    else if (__isset.downstream && !(downstream == rhs.downstream))
       return false;
     if (!(notImplementedError == rhs.notImplementedError))
       return false;
