@@ -92,12 +92,9 @@ void MockAgent::serveUDP(std::promise<void>& started)
 
     // Trick for converting `std::shared_ptr` into `boost::shared_ptr`. See
     // https://stackoverflow.com/a/12315035/1930331.
-    auto ptr = shared_from_this();
-    boost::shared_ptr<agent::thrift::AgentIf> iface(
-        ptr.get(), [ptr](MockAgent*) mutable { ptr.reset(); });
-    agent::thrift::AgentProcessor handler(iface);
+    agent::thrift::AgentProcessor handler(shared_from_this());
     TCompactProtocolFactory protocolFactory;
-    boost::shared_ptr<TMemoryBuffer> trans(
+    std::shared_ptr<TMemoryBuffer> trans(
         new TMemoryBuffer(net::kUDPPacketMaxLength));
 
     // Notify main thread that setup is done.
