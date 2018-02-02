@@ -7,7 +7,7 @@ if(BUILD_TESTING)
   hunter_add_package(GTest)
   find_package(GTest ${hunter_config} REQUIRED)
 
-  set(TEST_SRC
+  list(APPEND TEST_SRC
       ConfigTest.cpp
       ReferenceTest.cpp
       SpanContextTest.cpp
@@ -37,6 +37,13 @@ if(BUILD_TESTING)
       utils/ErrorUtilTest.cpp
       utils/RateLimiterTest.cpp
       utils/UDPClientTest.cpp)
+
+  if(JAEGERTRACING_BUILD_CROSSDOCK)
+    list(APPEND TEST_SRC
+         thrift-gen/TracedService.cpp
+	 thrift-gen/tracetest_constants.cpp
+	 thrift-gen/tracetest_types.cpp)
+  endif()
 
   if(HUNTER_ENABLED)
     # Hunter uses a different target name for GTest than CMake's own packages do;
