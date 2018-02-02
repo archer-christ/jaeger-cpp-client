@@ -23,7 +23,9 @@ SET(thrift_LIBRARIES ${thrift_LIBRARY} CACHE STRING "main thrift library")
 MARK_AS_ADVANCED(thrift_LIBRARY thrift_LIBRARY_STATIC)
 
 FILE(READ "${thrift_INCLUDE_DIR}/thrift/config.h" thrift_CONFIG_H)
-IF (thrift_CONFIG_H MATCHES "#define VERSION \"([0-9]+\\.[0-9]+\\.[0-9]+)\"")
+IF (thrift_CONFIG_H MATCHES "#define PACKAGE_VERSION \"([0-9]+\\.[0-9]+\\.[0-9]+)\"")
+    SET(thrift_VERSION "${CMAKE_MATCH_1}")
+ELSEIF (thrift_CONFIG_H MATCHES "#define VERSION \"([0-9]+\\.[0-9]+\\.[0-9]+)\"")
     SET(thrift_VERSION "${CMAKE_MATCH_1}")
 ENDIF()
 
