@@ -371,3 +371,11 @@ install(
   NAMESPACE "${namespace}"
   DESTINATION "${config_install_dir}"
 )
+
+
+add_executable(shortlived "shortlived.cpp")
+target_link_libraries(shortlived ${LIBS} jaegertracing)
+# If building on top of the local dependencies support, in-tree, add
+# target_include_directories(shortlived PRIVATE
+#  $<BUILD_INTERFACE:${jaegertracing_SOURCE_DIR}/src>
+#  $<BUILD_INTERFACE:${jaegertracing_BINARY_DIR}/src>)
